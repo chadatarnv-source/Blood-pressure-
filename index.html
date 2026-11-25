@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f7f6">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="บันทึกความดัน">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<title>บันทึกความดัน</title>
+<style>
+:root{--bg:#f4f7f6;--card:#fff;--ink:#18332f;--muted:#71827e;--line:#e6eeeb;--green:#197d68;--green2:#e7f4ef;--orange:#d88a3c;--red:#c85b57;--shadow:0 8px 28px rgba(24,51,47,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+.wrap{max-width:760px;margin:auto;padding:22px 16px 36px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:15px;background:var(--green2);display:grid;place-items:center;font-size:23px}.eyebrow{font-size:11px;color:var(--muted);letter-spacing:.08em}.brand h1{font-size:19px;margin:2px 0 0}.date{font-size:12px;color:var(--muted);text-align:right}
+.tabs{display:flex;gap:7px;background:#e9efec;padding:5px;border-radius:14px;margin-bottom:16px}.tab{border:0;background:transparent;padding:10px 14px;border-radius:10px;color:var(--muted);font-size:13px;font-weight:650;flex:1}.tab.active{background:white;color:var(--green);box-shadow:0 2px 8px #193b3010}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;margin-bottom:14px;box-shadow:var(--shadow)}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.section-head h2{font-size:15px;margin:0}.sub{font-size:12px;color:var(--muted)}
+.profile-row{display:flex;align-items:center;gap:8px}.profile-select{border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;color:var(--ink);font-size:13px}
+.metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}.metric{background:#f7faf8;border-radius:14px;padding:12px 10px}.metric .k{font-size:11px;color:var(--muted)}.metric .v{font-size:25px;font-weight:750;margin:4px 0 1px;letter-spacing:-1px}.metric .u{font-size:10px;color:var(--muted)}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:650;color:var(--green);background:var(--green2);border-radius:20px;padding:6px 9px;margin-top:12px}.dot{width:6px;height:6px;background:currentColor;border-radius:50%}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fbfcfb;color:var(--ink);font:inherit;font-size:14px;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--green)}.field textarea{resize:vertical;min-height:72px}.wide{grid-column:1/-1}.seg{display:flex;gap:8px}.seg button{flex:1;border:1px solid var(--line);border-radius:11px;padding:10px;background:#fff;color:var(--muted);font-size:13px}.seg button.on{border-color:#a7d4c5;background:var(--green2);color:var(--green);font-weight:700}
+.primary{width:100%;border:0;border-radius:13px;background:var(--green);color:white;padding:14px;font-size:14px;font-weight:700;margin-top:14px}.secondary{border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--green);padding:8px 11px;font-size:12px;font-weight:650}
+.chart-wrap{height:190px;position:relative}.chart-wrap svg{width:100%;height:100%;overflow:visible}.legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:7px}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.avg-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.avg{background:#f7faf8;border-radius:13px;padding:11px}.avg small{color:var(--muted);font-size:11px}.avg strong{display:block;font-size:18px;margin-top:3px}
+.history-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.history-item:last-child{border:0;padding-bottom:0}.reading{font-weight:750;font-size:16px}.reading small{font-size:11px;color:var(--muted);font-weight:500}.meta{font-size:11px;color:var(--muted);margin-top:4px}.actions{display:flex;gap:6px}.actions button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 9px;color:var(--muted);font-size:11px}
+.notice{font-size:11px;line-height:1.55;color:var(--muted);background:#f7faf8;padding:12px;border-radius:12px;margin-top:13px}.empty{text-align:center;color:var(--muted);font-size:13px;padding:26px 8px}.toolbar{display:flex;gap:7px;flex-wrap:wrap}.toolbar button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px;color:var(--green);font-size:12px;font-weight:650}.hidden{display:none!important}.foot{text-align:center;color:#9aa9a4;font-size:10px;padding:8px}
+@media(max-width:420px){.wrap{padding:17px 12px}.card{padding:15px}.metric .v{font-size:22px}.tab{padding:10px 6px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">♥</div><div><div class="eyebrow">PERSONAL HEALTH LOG</div><h1>บันทึกความดัน</h1></div></div>
+ <div class="date" id="todayLabel"></div>
+</header>
+<div class="tabs">
+ <button class="tab active" data-tab="home">ภาพรวม</button><button class="tab" data-tab="add">บันทึกค่า</button><button class="tab" data-tab="history">ประวัติ</button>
+</div>
+
+<section id="home">
+ <div class="card">
+  <div class="section-head"><h2>ข้อมูลผู้ใช้งาน</h2><div class="profile-row"><select id="profile" class="profile-select" aria-label="เลือกผู้ใช้งาน"></select><button class="secondary" id="addProfile">+ เพิ่ม</button></div></div>
+  <div class="sub" id="latestDate">ยังไม่มีข้อมูลที่บันทึก</div>
+  <div class="metrics" style="margin-top:12px">
+   <div class="metric"><div class="k">SYS · ตัวบน</div><div class="v" id="latestSys">—</div><div class="u">mmHg</div></div>
+   <div class="metric"><div class="k">DIA · ตัวล่าง</div><div class="v" id="latestDia">—</div><div class="u">mmHg</div></div>
+   <div class="metric"><div class="k">ชีพจร</div><div class="v" id="latestPulse">—</div><div class="u">ครั้ง/นาที</div></div>
+  </div>
+  <div id="latestStatus" class="status"><span class="dot"></span>รอข้อมูลการวัด</div>
+ </div>
+ <div class="card">
+  <div class="section-head"><h2>แนวโน้มความดัน</h2><select id="range" class="profile-select"><option value="7">7 วัน</option><option value="30">30 วัน</option></select></div>
+  <div class="chart-wrap" id="chart"></div>
+  <div class="legend"><span><i style="background:#197d68"></i>SYS ตัวบน</span><span><i style="background:#d88a3c"></i>DIA ตัวล่าง</span></div>
+  <div class="avg-grid"><div class="avg"><small>เฉลี่ย SYS</small><strong id="avgSys">—</strong></div><div class="avg"><small>เฉลี่ย DIA</small><strong id="avgDia">—</strong></div></div>
+  <div class="sub" style="margin-top:9px" id="countLabel">คำนวณจากรายการที่บันทึกในช่วงเวลานี้</div>
+ </div>
+ <div class="notice">ข้อมูลนี้ใช้สำหรับบันทึกและติดตามแนวโน้มส่วนตัว ไม่ใช่การวินิจฉัยโรค ควรวัดซ้ำเมื่อค่าผิดปกติและปรึกษาบุคลากรทางการแพทย์ หากมีอาการฉุกเฉิน เช่น เจ็บหน้าอก หายใจลำบาก หรืออ่อนแรงเฉียบพลัน ให้ขอความช่วยเหลือฉุกเฉินทันที</div>
+</section>
+
+<section id="add" class="hidden">
+ <div class="card">
+  <div class="section-head"><h2 id="formTitle">บันทึกค่าความดัน</h2><span class="sub">กรอกตามเครื่องวัด</span></div>
+  <form id="entryForm">
+   <div class="formgrid">
+    <div class="field"><label for="sys">SYS · ตัวบน (mmHg)</label><input id="sys" type="number" min="50" max="300" placeholder="เช่น 120" required></div>
+    <div class="field"><label for="dia">DIA · ตัวล่าง (mmHg)</label><input id="dia" type="number" min="30" max="200" placeholder="เช่น 80" required></div>
+    <div class="field"><label for="pulse">ชีพจร (ครั้ง/นาที)</label><input id="pulse" type="number" min="25" max="250" placeholder="เช่น 72"></div>
+    <div class="field"><label for="dateTime">วันและเวลาที่วัด</label><input id="dateTime" type="datetime-local" required></div>
+    <div class="field wide"><label>ช่วงเวลาที่วัด</label><div class="seg"><button type="button" data-period="เช้า" class="on">☀ เช้า</button><button type="button" data-period="เย็น">☾ เย็น</button><button type="button" data-period="อื่น ๆ">อื่น ๆ</button></div></div>
+    <div class="field wide"><label for="notes">บันทึกเพิ่มเติม (ไม่บังคับ)</label><textarea id="notes" placeholder="เช่น หลังพัก 5 นาที / ก่อนรับประทานยา"></textarea></div>
+   </div>
+   <button class="primary" type="submit" id="saveBtn">บันทึกข้อมูล</button>
+   <button type="button" class="secondary hidden" id="cancelEdit" style="width:100%;margin-top:8px">ยกเลิกการแก้ไข</button>
+  </form>
+ </div>
+</section>
+
+<section id="history" class="hidden">
+ <div class="card">
+  <div class="section-head"><h2>ประวัติการวัด</h2><span class="sub" id="historyCount">0 รายการ</span></div>
+  <div id="historyList"></div>
+  <div class="toolbar" style="margin-top:14px"><button id="exportBtn">ส่งออก CSV</button><button id="importBtn">นำเข้า CSV</button><input id="csvFile" type="file" accept=".csv,text/csv" class="hidden"></div>
+  <div class="notice">ข้อมูลจัดเก็บในเบราว์เซอร์ของอุปกรณ์นี้เท่านั้น การล้างข้อมูลเว็บไซต์หรือเปลี่ยนอุปกรณ์อาจทำให้ข้อมูลหาย แนะนำส่งออก CSV เก็บสำรองเป็นระยะ</div>
+ </div>
+</section>
+<div class="foot">บันทึกส่วนตัว · ข้อมูลไม่ถูกส่งไปยังเซิร์ฟเวอร์</div>
+</div>
+<script>
+const KEY='bp_personal_log_v2';
+let state=JSON.parse(localStorage.getItem(KEY)||'null')||{profiles:['ฉัน','คุณแม่'],active:'ฉัน',records:[]};
+let editing=null, period='เช้า';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){localStorage.setItem(KEY,JSON.stringify(state));render();}
+function current(){return state.records.filter(r=>r.profile===state.active).sort((a,b)=>b.datetime.localeCompare(a.datetime));}
+function fmt(d){return new Date(d).toLocaleString('th-TH',{dateStyle:'medium',timeStyle:'short'});}
+function todayInput(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,16);}
+function setTab(tab){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));['home','add','history'].forEach(x=>$(x).classList.toggle('hidden',x!==tab));if(tab==='add'&&!editing){$('dateTime').value=todayInput();}render();}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+$('todayLabel').textContent=new Date().toLocaleDateString('th-TH',{weekday:'short',day:'numeric',month:'short'});
+function renderProfiles(){ $('profile').innerHTML=state.profiles.map(p=>`<option ${p===state.active?'selected':''}>${esc(p)}</option>`).join('');}
+$('profile').onchange=e=>{state.active=e.target.value;save();};
+$('addProfile').onclick=()=>{let n=prompt('ชื่อผู้ใช้งานใหม่');if(n&&n.trim()&&!state.profiles.includes(n.trim())){state.profiles.push(n.trim());state.active=n.trim();save();}};
+document.querySelectorAll('[data-period]').forEach(b=>b.onclick=()=>{period=b.dataset.period;document.querySelectorAll('[data-period]').forEach(x=>x.classList.toggle('on',x===b));});
+function renderHome(){
+ const rs=current(),last=rs[0];$('latestDate').textContent=last?'บันทึกล่าสุด · '+fmt(last.datetime):'ยังไม่มีข้อมูลที่บันทึก';
+ $('latestSys').textContent=last?.sys??'—';$('latestDia').textContent=last?.dia??'—';$('latestPulse').textContent=last?.pulse||'—';
+ $('latestStatus').innerHTML=last?`<span class="dot"></span>${last.sys>=180||last.dia>=120?'ค่าสูงมาก ควรวัดซ้ำและรับคำแนะนำทางการแพทย์':last.sys>=140||last.dia>=90?'ค่าที่บันทึกสูงกว่าช่วงทั่วไป':'บันทึกค่าล่าสุดแล้ว'}`:'<span class="dot"></span>รอข้อมูลการวัด';
+ const days=Number($('range').value),cut=new Date();cut.setDate(cut.getDate()-days+1);cut.setHours(0,0,0,0);
+ const data=rs.filter(r=>new Date(r.datetime)>=cut).sort((a,b)=>a.datetime.localeCompare(b.datetime));
+ const avg=k=>data.length?Math.round(data.reduce((s,r)=>s+r[k],0)/data.length):'—';
+ $('avgSys').textContent=avg('sys')==='—'?'—':avg('sys')+' mmHg';$('avgDia').textContent=avg('dia')==='—'?'—':avg('dia')+' mmHg';$('countLabel').textContent=`คำนวณจาก ${data.length} รายการในช่วง ${days} วัน`;
+ drawChart(data);
+}
+function drawChart(data){
+ const el=$('chart');if(!data.length){el.innerHTML='<div class="empty">ยังไม่มีข้อมูลในช่วงเวลานี้<br>เริ่มบันทึกเพื่อดูแนวโน้ม</div>';return;}
+ const W=620,H=185,L=36,R=12,T=12,B=26,vals=data.flatMap(r=>[r.sys,r.dia]),min=Math.max(0,Math.floor((Math.min(...vals)-15)/10)*10),max=Math.ceil((Math.max(...vals)+15)/10)*10;
+ const x=i=>L+(data.length===1?(W-L-R)/2:i*(W-L-R)/(data.length-1)),y=v=>T+(max-v)*(H-T-B)/(max-min);
+ let grid='';for(let v=min;v<=max;v+=20){grid+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#e9efec"/><text x="${L-7}" y="${y(v)+4}" text-anchor="end" fill="#94a39e" font-size="10">${v}</text>`;}
+ const line=k=>data.map((r,i)=>(i?'L':'M')+x(i)+' '+y(r[k])).join(' ');
+ const circles=(k,c)=>data.map((r,i)=>`<circle cx="${x(i)}" cy="${y(r[k])}" r="3.5" fill="${c}" stroke="white" stroke-width="1.5"/>`).join('');
+ const labels=data.map((r,i)=>data.length<=7||i===0||i===data.length-1?`<text x="${x(i)}" y="${H-5}" text-anchor="middle" fill="#94a39e" font-size="9">${new Date(r.datetime).toLocaleDateString('th-TH',{day:'numeric',month:'short'})}</text>`:'').join('');
+ el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="กราฟแนวโน้มความดัน">${grid}<path d="${line('sys')}" fill="none" stroke="#197d68" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/> <path d="${line('dia')}" fill="none" stroke="#d88a3c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>${circles('sys','#197d68')}${circles('dia','#d88a3c')}${labels}</svg>`;
+}
+$('range').onchange=renderHome;
+function renderHistory(){const rs=current();$('historyCount').textContent=rs.length+' รายการ';$('historyList').innerHTML=rs.length?rs.map(r=>`<div class="history-item"><div><div class="reading">${r.sys}<small> / </small>${r.dia} <small>mmHg</small></div><div class="meta">${fmt(r.datetime)} · ${esc(r.period)}${r.pulse?' · ชีพจร '+r.pulse:''}${r.notes?' · '+esc(r.notes):''}</div></div><div class="actions"><button onclick="editRecord('${r.id}')">แก้ไข</button><button onclick="deleteRecord('${r.id}')">ลบ</button></div></div>`).join(''):'<div class="empty">ยังไม่มีประวัติการวัด</div>';}
+function render(){renderProfiles();renderHome();renderHistory();}
+$('entryForm').onsubmit=e=>{e.preventDefault();const sys=Number($('sys').value),dia=Number($('dia').value),pulse=Number($('pulse').value||0);if(sys<50||sys>300||dia<30||dia>200||sys<=dia){alert('กรุณาตรวจสอบค่า SYS/DIA อีกครั้ง');return;}const obj={id:editing||String(Date.now()),profile:state.active,sys,dia,pulse,datetime:$('dateTime').value,period,notes:$('notes').value.trim()};if(editing){const i=state.records.findIndex(r=>r.id===editing);state.records[i]=obj;}else state.records.push(obj);editing=null;$('entryForm').reset();$('cancelEdit').classList.add('hidden');$('formTitle').textContent='บันทึกค่าความดัน';$('saveBtn').textContent='บันทึกข้อมูล';save();setTab('history');};
+window.editRecord=id=>{const r=state.records.find(x=>x.id===id);if(!r)return;editing=id;$('sys').value=r.sys;$('dia').value=r.dia;$('pulse').value=r.pulse||'';$('dateTime').value=r.datetime;$('notes').value=r.notes||'';period=r.period;document.querySelectorAll('[data-period]').forEach(b=>b.classList.toggle('on',b.dataset.period===period));$('formTitle').textContent='แก้ไขรายการ';$('saveBtn').textContent='บันทึกการแก้ไข';$('cancelEdit').classList.remove('hidden');setTab('add');};
+window.deleteRecord=id=>{if(confirm('ต้องการลบรายการนี้หรือไม่?')){state.records=state.records.filter(r=>r.id!==id);save();}};
+$('cancelEdit').onclick=()=>{editing=null;$('entryForm').reset();$('cancelEdit').classList.add('hidden');$('formTitle').textContent='บันทึกค่าความดัน';$('saveBtn').textContent='บันทึกข้อมูล';setTab('history');};
+$('exportBtn').onclick=()=>{const rows=[['profile','datetime','period','sys','dia','pulse','notes'],...state.records.map(r=>[r.profile,r.datetime,r.period,r.sys,r.dia,r.pulse,r.notes])];const csv='\uFEFF'+rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='blood-pressure-backup.csv';a.click();URL.revokeObjectURL(a.href);};
+$('importBtn').onclick=()=>$('csvFile').click();
+$('csvFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const txt=(await f.text()).replace(/^\uFEFF/,'');const lines=txt.split(/\r?\n/).filter(Boolean);const parse=line=>{let out=[],v='',q=false;for(let i=0;i<line.length;i++){let c=line[i];if(c==='"'&&line[i+1]==='"'){v+='"';i++;}else if(c==='"')q=!q;else if(c===','&&!q){out.push(v);v='';}else v+=c;}out.push(v);return out;};const head=parse(lines.shift()).map(x=>x.toLowerCase());let n=0;for(const line of lines){const a=parse(line),o={};head.forEach((h,i)=>o[h]=a[i]);if(o.sys&&o.dia&&o.datetime){const profile=o.profile||state.active;if(!state.profiles.includes(profile))state.profiles.push(profile);state.records.push({id:String(Date.now())+'_'+n++,profile,sys:Number(o.sys),dia:Number(o.dia),pulse:Number(o.pulse)||0,datetime:o.datetime,period:o.period||'อื่น ๆ',notes:o.notes||''});}}save();alert('นำเข้าข้อมูล '+n+' รายการ');e.target.value='';};
+render();
+</script>
+</body></html>
